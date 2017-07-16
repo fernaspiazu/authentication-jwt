@@ -4,7 +4,7 @@
 
 This is a Play starter application example that shows how to perform both authentication and authorization by using [Json Web Token](https://tools.ietf.org/html/rfc7519).
 
-Inspired on pauldijou jwt-scala examples [play-angular-standalone](https://github.com/pauldijou/jwt-scala/tree/master/examples/play-angular-standalone) with some improvements and upgraded to Play 2.6
+Inspired on pauldijou jwt-scala examples [play-angular-standalone](https://github.com/pauldijou/jwt-scala/tree/master/examples/play-angular-standalone) upgraded to Play 2.6
 
 ## Running
 
