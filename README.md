@@ -6,6 +6,8 @@ This is a Play starter application example that shows how to perform both authen
 
 Inspired on pauldijou jwt-scala examples [play-angular-standalone](https://github.com/pauldijou/jwt-scala/tree/master/examples/play-angular-standalone) upgraded to Play 2.6
 
+This app (current version) is up & running on heroku, [click here](https://authentication-jwt.herokuapp.com/) in order to see the demo.
+
 ## Running
 
 Run this using [sbt](http://www.scala-sbt.org/):
