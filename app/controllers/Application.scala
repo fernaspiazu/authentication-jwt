@@ -27,8 +27,8 @@ import play.api.mvc.Request
 import scala.concurrent.{ ExecutionContext, Future }
 
 @Singleton
-class SecuredController @Inject()(scc: SecuredControllerComponents, assets: AssetsFinder)(implicit ec: ExecutionContext)
-    extends SecuredBaseController(scc) {
+class Application @Inject()(scc: SecuredControllerComponents, assets: AssetsFinder)(implicit ec: ExecutionContext)
+    extends SecuredController(scc) {
 
   private val passwords = Seq("red", "blue", "green")
 
@@ -36,7 +36,7 @@ class SecuredController @Inject()(scc: SecuredControllerComponents, assets: Asse
     ((JsPath \ "username").read[String] and (JsPath \ "password").read[String]).tupled
 
   def index = Action {
-    Ok(views.html.login(assets))
+    Ok(views.html.index(assets))
   }
 
   def login = Action(parse.json).async { implicit request: Request[JsValue] =>

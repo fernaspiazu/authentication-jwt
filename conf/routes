@@ -2,11 +2,13 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 # An example controller showing a sample home page
-GET         /                    controllers.SecuredController.index
-POST        /api/login           controllers.SecuredController.login
-GET         /api/public          controllers.SecuredController.publicApi
-GET         /api/private         controllers.SecuredController.privateApi
-GET         /api/admin           controllers.SecuredController.adminApi
+
+GET         /                    controllers.Application.index
+
+POST        /api/login           controllers.Application.login
+GET         /api/public          controllers.Application.publicApi
+GET         /api/private         controllers.Application.privateApi
+GET         /api/admin           controllers.Application.adminApi
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

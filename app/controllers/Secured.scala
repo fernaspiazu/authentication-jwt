@@ -66,9 +66,7 @@ case class SecuredControllerComponents @Inject()(
     executionContext: scala.concurrent.ExecutionContext
 ) extends ControllerComponents
 
-class SecuredBaseController @Inject()(scc: SecuredControllerComponents) extends BaseController {
-  override protected def controllerComponents: ControllerComponents = scc
-
+class SecuredController @Inject()(scc: SecuredControllerComponents) extends AbstractController(scc) {
   def AdminAction: AdminActionBuilder                 = scc.adminActionBuilder
   def AuthenticatedAction: AuthenticatedActionBuilder = scc.authenticatedActionBuilder
 }
