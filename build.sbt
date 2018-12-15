@@ -2,7 +2,7 @@ name := """authentication-jwt"""
 
 version := "0.1.1"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.7"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
