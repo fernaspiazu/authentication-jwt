@@ -31,7 +31,7 @@ class AuthenticatedRequest[A](user: User, request: Request[A]) extends WrappedRe
 
 class AuthenticatedActionBuilder @Inject()(parser: BodyParsers.Default)(implicit ec: ExecutionContext)
     extends ActionBuilderImpl(parser) {
-  override def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]): Future[Result] = {
+  override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] = {
     request.jwtSession.getAs[User]("user") match {
       case Some(user) =>
         block(new AuthenticatedRequest[A](user, request)) //.map(_.refreshJwtSession(request))
@@ -43,7 +43,7 @@ class AuthenticatedActionBuilder @Inject()(parser: BodyParsers.Default)(implicit
 
 class AdminActionBuilder @Inject()(parser: BodyParsers.Default)(implicit ec: ExecutionContext)
     extends ActionBuilderImpl(parser) {
-  override def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]): Future[Result] = {
+  override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] = {
     request.jwtSession.getAs[User]("user") match {
       case Some(user) if user.isAdmin =>
         block(new AuthenticatedRequest(user, request)) //.map(_.refreshJwtSession(request))

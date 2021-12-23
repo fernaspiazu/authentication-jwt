@@ -17,14 +17,13 @@
 package controllers
 
 import javax.inject._
-
 import models.User
 import pdi.jwt.JwtSession._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.api.mvc.Request
+import play.api.mvc.{Action, AnyContent, Request}
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class Application @Inject()(scc: SecuredControllerComponents, assets: AssetsFinder)(implicit ec: ExecutionContext)
@@ -35,11 +34,11 @@ class Application @Inject()(scc: SecuredControllerComponents, assets: AssetsFind
   private val loginForm: Reads[(String, String)] =
     ((JsPath \ "username").read[String] and (JsPath \ "password").read[String]).tupled
 
-  def index = Action {
+  def index: Action[AnyContent] = Action {
     Ok(views.html.index(assets))
   }
 
-  def login = Action(parse.json).async { implicit request: Request[JsValue] =>
+  def login: Action[JsValue] = Action(parse.json).async { implicit request: Request[JsValue] =>
     val result = request.body
       .validate(loginForm)
       .fold(
@@ -57,15 +56,15 @@ class Application @Inject()(scc: SecuredControllerComponents, assets: AssetsFind
     Future(result)
   }
 
-  def publicApi = Action.async {
+  def publicApi: Action[AnyContent] = Action.async {
     Future(Ok("That was easy!"))
   }
 
-  def privateApi = AuthenticatedAction.async {
+  def privateApi: Action[AnyContent] = AuthenticatedAction.async {
     Future(Ok("Only the best can see that."))
   }
 
-  def adminApi = AdminAction.async {
+  def adminApi: Action[AnyContent] = AdminAction.async {
     Future(Ok("Top secret data. Hopefully, nobody will ever access it."))
   }
 
